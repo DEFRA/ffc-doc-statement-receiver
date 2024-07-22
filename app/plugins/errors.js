@@ -6,11 +6,8 @@ module.exports = {
         const response = request.response
 
         if (response.isBoom) {
-          // An error was raised during
-          // processing the request
           const statusCode = response.output.statusCode
 
-          // Log the error
           request.log('error', {
             statusCode,
             message: response.message,
