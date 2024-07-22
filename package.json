@@ -1,8 +1,8 @@
 {
-  "name": "ffc-template-node",
-  "version": "0.1.0",
-  "description": "description-of-project-goes-here",
-  "homepage": "https://github.com/DEFRA/ffc-template-node",
+  "name": "ffc-doc-statement-receiver",
+  "version": "1.0.0",
+  "description": "Statement API",
+  "homepage": "https://github.com/DEFRA/ffc-doc-statement-receiver",
   "main": "app/index.js",
   "scripts": {
     "pretest": "npm run test:lint",
@@ -14,17 +14,30 @@
     "start:debug": "nodemon --inspect-brk=0.0.0.0 --ext js --legacy-watch app/index.js"
   },
   "author": "Defra",
-  "contributors": [],
+  "contributors": [
+    "Abidemi Adio abidemi.adio@defra.gov.uk",
+    "Marc Templeton m.templeton@kainos.com",
+    "Simon Dunn simon.dunn1@defra.gov.uk",
+    "John Watson john.watson2@rpa.gov.uk",
+    "Leigh Godson leigh.godson.external@eviden.com"
+  ],
   "license": "OGL-UK-3.0",
   "dependencies": {
-    "@hapi/hapi": "21.3.2",
-    "applicationinsights": "2.9.1"
+    "@azure/identity": "2.0.5",
+    "@azure/storage-blob": "12.10.0",
+    "@hapi/boom": "10.0.0",
+    "@hapi/catbox-redis": "6.0.2",
+    "@hapi/hapi": "20.2.2",
+    "applicationinsights": "2.3.5",
+    "hapi-pino": "10.1.0",
+    "joi": "17.7.0"
   },
   "devDependencies": {
-    "jest": "29.7.0",
-    "jest-junit": "16.0.0",
-    "nodemon": "3.0.1",
-    "standard": "17.1.0"
+    "blipp": "4.0.2",
+    "jest": "28.1.2",
+    "jest-junit": "14.0.0",
+    "nodemon": "2.0.19",
+    "standard": "17.0.0"
   },
   "standard": {
     "globals": [

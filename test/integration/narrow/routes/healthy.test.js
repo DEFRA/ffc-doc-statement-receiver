@@ -1,8 +1,10 @@
+let createServer
+let server
 describe('Healthy test', () => {
-  const server = require('../../../../app/server')
-
   beforeEach(async () => {
-    await server.start()
+    createServer = require('../../../../app/server')
+    server = await createServer()
+    await server.initialize()
   })
 
   test('GET /healthy route returns 200', async () => {
