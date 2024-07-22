@@ -1,6 +1,7 @@
 describe('Server test', () => {
   test('createServer returns server', () => {
-    const server = require('../../../../app/server')
+    const createServer = require('../../../../app/server')
+    const server = createServer()
     expect(server).toBeDefined()
   })
 })

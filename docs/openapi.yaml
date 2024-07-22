@@ -1,0 +1,40 @@
+openapi: '3.0.0'
+
+info:
+  title: FFC Doc Statement Receiver
+  description: Serve FFC statement files from Blob Storage
+  version: 1.0.0
+
+paths:
+  /statement/{version}/{filename}:
+    get:
+      description: Get PDF statement file
+      parameters:
+        - $ref: '#/components/parameters/version'
+        - $ref: '#/components/parameters/filename'
+      responses:
+        200:
+          description: PDF is returned successfully either from the cache or Blob Storage
+        400:
+          description: Internal error because the filename does not exist in Blob Storage, there is an issue converting the file to Buffer or the Hapi toolbox cannot render the Buffer contents
+        404:
+          description: Statement filename is not in the correct format
+
+components:
+  parameters:
+      version:
+        name: version
+        in: path
+        description: Version of the API to use]
+        example: v1
+        required: true
+        schema:
+            type: string
+      filename:
+        name: filename
+        description: Name of file to be downloaded
+        example: FFC_PaymentStatement_SFI_2022_1234567890_2022103100000000.pdf
+        in: path
+        required: true
+        schema:
+          type: string

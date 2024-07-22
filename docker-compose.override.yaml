@@ -2,14 +2,36 @@
 # to provide dependencies and expose ports for local testing
 
 services:
-  ffc-template-node:
+  ffc-doc-statement-receiver:
     build:
       target: development
-    image: ffc-template-node-development
-    container_name: ffc-template-node-development
+    image: ffc-doc-statement-receiver-development
+    container_name: ffc-doc-statement-receiver-development
+    depends_on:
+      - ffc-doc-statement-receiver-redis
     ports:
-      - "3000:3000"
-      - "9229:9229"
+      - "3022:3022"
+      - "9235:9229"
     volumes:
       - ./app:/home/node/app
       - ./package.json:/home/node/package.json
+    environment:
+      AZURE_STORAGE_CONNECTION_STRING: DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://ffc-doc-statement-azurite:10000/devstoreaccount1;
+
+  ffc-doc-statement-azurite:
+    volumes:
+      - azurite_data:/data
+    ports:
+      - "10058:10000"
+
+  ffc-doc-statement-receiver-redis:
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --dir /data --save 5 1
+
+volumes:
+  azurite_data:
+  postgres_data:
+  redis_data:
