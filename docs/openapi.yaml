@@ -1,7 +1,7 @@
 openapi: '3.0.0'
 
 info:
-  title: FFC Pay Statement Receiver
+  title: FFC Doc Statement Receiver
   description: Serve FFC statement files from Blob Storage
   version: 1.0.0
 
