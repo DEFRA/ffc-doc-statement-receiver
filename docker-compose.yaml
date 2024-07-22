@@ -1,10 +1,26 @@
 services:
-  ffc-template-node:
+  ffc-doc-statement-receiver:
     build:
       context: .
       target: production
-    image: ffc-template-node
-    container_name: ffc-template-node
+    image: ffc-doc-statement-receiver
+    container_name: ffc-doc-statement-receiver
+    depends_on:
+      - ffc-doc-statement-azurite
     environment:
-      APPINSIGHTS_CLOUDROLE: ffc-template-node-local
-      APPINSIGHTS_CONNECTIONSTRING: ${APPINSIGHTS_CONNECTIONSTRING}
+      APPINSIGHTS_CLOUDROLE: ffc-doc-statement-receiver-local
+      APPINSIGHTS_INSTRUMENTATIONKEY: ${APPINSIGHTS_INSTRUMENTATIONKEY}
+      AZURE_STORAGE_ACCOUNT_NAME: ${AZURE_STORAGE_ACCOUNT_NAME:-devstoreaccount1}
+      AZURE_STORAGE_USE_CONNECTION_STRING: "true"
+      REDIS_HOSTNAME: ffc-doc-statement-receiver-redis
+      REDIS_PASSWORD: redis
+      PORT: 3022
+
+  ffc-doc-statement-azurite:
+    image: mcr.microsoft.com/azure-storage/azurite:3.17.1
+    command: "azurite-blob --loose --blobHost 0.0.0.0"
+    labels:
+      com.docker.compose.pay.role: ffc-doc-statement-azurite
+
+  ffc-doc-statement-receiver-redis:
+    image: redis:6.2.7

@@ -1,7 +1,9 @@
+let createServer
+let server
 describe('Healthz test', () => {
-  const server = require('../../../../app/server')
-
   beforeEach(async () => {
+    createServer = require('../../../../app/server')
+    server = await createServer()
     await server.start()
   })
 

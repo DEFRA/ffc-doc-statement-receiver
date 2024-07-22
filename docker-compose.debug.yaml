@@ -1,3 +1,3 @@
 services:
-  ffc-template-node:
+  ffc-doc-statement-receiver:
     command: npm run start:debug
