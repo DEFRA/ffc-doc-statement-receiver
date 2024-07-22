@@ -1,0 +1,65 @@
+environment: production
+environmentCode:
+name: ffc-doc-statement-receiver
+namespace: ffc-doc
+workstream: ffc-doc
+image: ffc-doc-statement-receiver
+
+labels:
+  component: service
+
+appInsights:
+  key:
+
+containerConfigMap:
+  name: ffc-doc-statement-receiver-config-map
+
+containerSecret:
+  name: ffc-doc-statement-receiver-container-secret
+  type: Opaque
+
+deployment: {}
+
+container:
+  requestMemory: 100Mi
+  requestCpu: 100m
+  limitMemory: 100Mi
+  limitCpu: 100m
+  port: 3022
+  azureStorageAccountName: ffcdoc
+  azureStorageConnectionString: dummy
+  azureStorageUseConnectionString: false
+  azureStorageCreateContainers: false
+  storageContainer: statements
+  storageFolder: outbound
+  redisHostname: hosty-mchost-face
+  redisPort: 9999
+  redisPassword: redis
+  endpointEnabled: true
+
+ingress:
+  class: nginx
+  endpoint: ffc-doc-statement-receiver
+  server: example.com
+
+livenessProbe:
+  path: /healthz
+  port: 3022
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  failureThreshold: 3
+  timeoutSeconds: 5
+
+readinessProbe:
+  path: /healthy
+  port: 3022
+  initialDelaySeconds: 40
+  periodSeconds: 10
+  failureThreshold: 3
+  timeoutSeconds: 5
+
+aadPodIdentity: true
+
+azureIdentity:
+  clientID: not-a-real-clientID
+  resourceID: not-a-real-resourceID
