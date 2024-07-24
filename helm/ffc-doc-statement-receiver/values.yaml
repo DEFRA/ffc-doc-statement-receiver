@@ -33,7 +33,7 @@ container:
   storageContainer: statements
   storageFolder: outbound
   redisHostname: hosty-mchost-face
-  redisPort: 9999
+  redisPort: 6380
   redisPassword: redis
   endpointEnabled: true
 
