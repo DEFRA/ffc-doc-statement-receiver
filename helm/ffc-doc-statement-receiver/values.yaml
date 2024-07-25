@@ -32,7 +32,7 @@ container:
   azureStorageCreateContainers: false
   storageContainer: statements
   storageFolder: outbound
-  redisHostname: hosty-mchost-face
+  redisHostname: hosty-mchost
   redisPort: 6380
   redisPassword: redis
   endpointEnabled: true
