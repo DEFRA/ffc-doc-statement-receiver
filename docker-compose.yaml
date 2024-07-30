@@ -9,7 +9,7 @@ services:
       - ffc-doc-statement-azurite
     environment:
       APPINSIGHTS_CLOUDROLE: ffc-doc-statement-receiver-local
-      APPINSIGHTS_INSTRUMENTATIONKEY: ${APPINSIGHTS_INSTRUMENTATIONKEY}
+      APPLICATIONINSIGHTS_CONNECTION_STRING: ${APPLICATIONINSIGHTS_CONNECTION_STRING}
       AZURE_STORAGE_ACCOUNT_NAME: ${AZURE_STORAGE_ACCOUNT_NAME:-devstoreaccount1}
       AZURE_STORAGE_USE_CONNECTION_STRING: "true"
       REDIS_HOSTNAME: ffc-doc-statement-receiver-redis
