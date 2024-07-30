@@ -13,6 +13,7 @@ Optional:
 ## Api contracts
 
 All api contracts are fully documented in an [OpenAPI specification](docs/openapi.yaml).
+asyncAPI will be replacing OpenAPI
 
 ## Running the application
 
