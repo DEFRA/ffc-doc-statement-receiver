@@ -1,6 +1,6 @@
 {
   "name": "ffc-doc-statement-receiver",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Statement API",
   "homepage": "https://github.com/DEFRA/ffc-doc-statement-receiver",
   "main": "app/index.js",
