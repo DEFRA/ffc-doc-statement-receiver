@@ -1,6 +1,6 @@
 {
   "name": "ffc-doc-statement-receiver",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Statement API",
   "homepage": "https://github.com/DEFRA/ffc-doc-statement-receiver",
   "main": "app/index.js",
@@ -19,7 +19,8 @@
     "Marc Templeton m.templeton@kainos.com",
     "Simon Dunn simon.dunn1@defra.gov.uk",
     "John Watson john.watson2@rpa.gov.uk",
-    "Leigh Godson leigh.godson.external@eviden.com"
+    "Leigh Godson leigh.godson.external@eviden.com",
+    "John Barnard john.barnard.external@eviden.com"
   ],
   "license": "OGL-UK-3.0",
   "dependencies": {
