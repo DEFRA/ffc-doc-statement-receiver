@@ -4,6 +4,7 @@ const getStatementFromCache = require('./get-statement-from-cache')
 const getStatementFromBlobStorage = require('./get-statement-from-blob-storage')
 
 const getReadThroughStatement = async (request, filename) => {
+  console.log(`Retrieving ${filename} from cache`)
   const cacheFile = await getStatementFromCache(request, filename)
 
   if (cacheFile) {
