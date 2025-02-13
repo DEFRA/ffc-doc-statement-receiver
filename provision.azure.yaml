@@ -1,0 +1,13 @@
+resources:
+  identity: doc-statement-generator
+  postgreSql:
+    name: ffc-doc-statement-generator
+  topics:
+    - name: ffc-doc-statements
+      role: receiver
+      subscriptions:
+        - name: ffc-doc-statement-generator
+    - name: ffc-doc-statement-publish
+      role: sender
+    - name: ffc-doc-statement-crm
+      role: sender
