@@ -6,7 +6,8 @@ const schema = Joi.object({
   container: Joi.string().default('statements'),
   folder: Joi.string().default('outbound'),
   useConnectionStr: Joi.boolean().default(false),
-  createContainers: Joi.boolean().default(true)
+  createContainers: Joi.boolean().default(true),
+  managedIdentityClientId: Joi.string().optional()
 })
 
 const config = {
@@ -15,7 +16,8 @@ const config = {
   container: process.env.AZURE_STORAGE_CONTAINER,
   folder: process.env.AZURE_STORAGE_FOLDER,
   useConnectionStr: process.env.AZURE_STORAGE_USE_CONNECTION_STRING,
-  createContainers: process.env.AZURE_STORAGE_CREATE_CONTAINERS
+  createContainers: process.env.AZURE_STORAGE_CREATE_CONTAINERS,
+  managedIdentityClientId: process.env.AZURE_CLIENT_ID
 }
 
 const result = schema.validate(config, {
