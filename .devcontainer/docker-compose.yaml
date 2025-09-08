@@ -1,0 +1,31 @@
+services:
+  ffc-doc-statement-receiver:
+    build:
+      target: development
+    image: ffc-doc-statement-receiver-development
+    container_name: ffc-doc-statement-receiver-development
+    ports:
+      - "9235:9229"
+    volumes:
+      - ../.gitignore:/workspaces:cached/.gitignore
+      - ..:/workspaces:cached
+    environment:
+      AZURE_STORAGE_CONNECTION_STRING: DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://ffc-doc-statement-azurite:10000/devstoreaccount1;
+      JAVA_HOME: /usr/lib/jvm/java-17-openjdk
+
+  ffc-doc-statement-azurite:
+    volumes:
+      - azurite_data:/data
+    ports:
+      - "10058:10000"
+  
+  ffc-doc-statement-receiver-redis:
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --dir /data --save 5 1
+
+volumes:
+  azurite_data:
+  redis_data:
