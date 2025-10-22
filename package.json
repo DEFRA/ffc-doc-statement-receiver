@@ -30,6 +30,8 @@
     "@hapi/catbox-redis": "6.0.2",
     "@hapi/hapi": "20.2.2",
     "applicationinsights": "2.9.6",
+    "ffc-alerting-utils": "1.0.6",
+    "ffc-pay-event-publisher": "1.2.0",
     "hapi-pino": "10.1.0",
     "joi": "17.7.0"
   },
