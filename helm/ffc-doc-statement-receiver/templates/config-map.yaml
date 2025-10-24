@@ -2,6 +2,11 @@
 {{- define "ffc-doc-statement-receiver.config-map" -}}
 data:
   NODE_ENV: {{ quote .Values.environment }}
+  {{- if and (.Values.environmentCode) (not .Values.pr) }}
+  ALERT_TOPIC_ADDRESS: {{ .Values.container.alertTopicAddress }}-{{ .Values.environmentCode }}
+  {{ else }}
+  ALERT_TOPIC_ADDRESS: {{ .Values.container.alertTopicAddress }}
+  {{- end }}
   PORT: {{ quote .Values.container.port }}
   APPINSIGHTS_CONNECTION_STRING: {{ quote .Values.appInsights.connectionString }}
   APPINSIGHTS_CLOUDROLE: {{ quote .Values.name }}
