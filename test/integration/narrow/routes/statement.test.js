@@ -246,7 +246,7 @@ describe('Statement route', () => {
     const response = await server.inject(options)
 
     expect(response.statusCode).toBe(200)
-  }, 10000))
+  }, 10000)
 
   test('GET /{version}/statements/statement/{filename} route should return response status code 200 when storage returns empty array', async () => {
     mockDownload.mockResolvedValue({
