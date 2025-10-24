@@ -36,6 +36,7 @@ container:
   redisPort: 6379
   redisPassword: redis
   endpointEnabled: true
+  alertTopicAddress: ffc-doc-alerting
 
 ingress:
   class: nginx
