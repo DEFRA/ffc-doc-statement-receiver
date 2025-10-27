@@ -21,6 +21,12 @@ jest.mock('@azure/storage-blob', () => {
   }
 })
 
+jest.mock('../../../../app/alert', () => {
+  return {
+    sendAlert: jest.fn()
+  }
+})
+
 const { Readable } = require('stream')
 
 const createServer = require('../../../../app/server')
