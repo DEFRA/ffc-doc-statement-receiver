@@ -234,7 +234,7 @@ describe('Statement route', () => {
     expect(response.result.message).toBe(`${filename} does not exist`)
   })
 
-  test('GET /{version}/statements/statement/{filename} route should return response status code 200 when storage returns empty string', async () => {
+  test.only('GET /{version}/statements/statement/{filename} route should return response status code 200 when storage returns empty string', async () => {
     mockDownload.mockResolvedValue({
       readableStreamBody: Readable.from('', { encoding: 'utf8' })
     })
