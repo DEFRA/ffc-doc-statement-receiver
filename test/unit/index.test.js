@@ -1,5 +1,10 @@
 const createServer = require('../../app/server')
 jest.mock('../../app/server')
+jest.mock('ffc-alerting-utils', () => {
+  return {
+    init: jest.fn().mockResolvedValue()
+  }
+})
 
 describe('Server initialization', () => {
   const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
