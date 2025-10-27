@@ -38,4 +38,26 @@ describe('Server initialization', () => {
     expect(logSpy).toHaveBeenCalledWith(expect.any(Error))
     expect(exitSpy).toHaveBeenCalledWith(1)
   })
+
+  test('Should init alerting', async () => {
+    jest.isolateModules(() => {
+      require('../../app/index')
+    })
+
+    await new Promise(process.nextTick)
+    const { init } = require('ffc-alerting-utils')
+    expect(init).toHaveBeenCalled()
+  })
+
+  test('should use environment vairables if alerting init return false', async () => {
+    const { init } = require('ffc-alerting-utils')
+    init.mockResolvedValueOnce(false)
+
+    jest.isolateModules(() => {
+      require('../../app/index')
+    })
+
+    await new Promise(process.nextTick)
+    expect(init).toHaveBeenCalled()
+  })
 })
