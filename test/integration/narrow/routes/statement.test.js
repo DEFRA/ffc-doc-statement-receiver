@@ -42,18 +42,9 @@ let version
 let filename
 let fileContent
 
-const safeDrop = async (request, key) => {
-  try {
-    await drop(request, key)
-  } catch (err) {
-    console.warn(`Failed to drop cache key ${key}:`, err)
-  }
-}
-
 describe('Statement route', () => {
   beforeEach(async () => {
     server = await createServer()
-    await server.initialize()
     request = { server: { app: { cache: server.app.cache } } }
     version = require('../../../mock-components/version')
     filename = require('../../../mock-components/filename')
@@ -63,11 +54,12 @@ describe('Statement route', () => {
       readableStreamBody: Readable.from(fileContent, { encoding: 'utf8' })
     })
 
-    await safeDrop(request, filename)
+    await server.initialize()
+    await drop(request, filename)
   })
 
   afterEach(async () => {
-    await safeDrop(request, filename)
+    await drop(request, filename)
     await server.stop()
   })
 
@@ -259,7 +251,7 @@ describe('Statement route', () => {
     const response = await server.inject(options)
 
     expect(response.statusCode).toBe(200)
-  }, 10000)
+  })
 
   test('GET /{version}/statements/statement/{filename} route should return response status code 200 when storage returns empty array', async () => {
     mockDownload.mockResolvedValue({
