@@ -1,6 +1,5 @@
 const config = require('../../../app/config')
 const createServer = require('../../../app/server')
-
 const getCache = require('../../../app/cache/get-cache')
 
 let request
@@ -22,29 +21,19 @@ afterEach(async () => {
   jest.resetAllMocks()
 })
 
-describe('get cache object', () => {
+describe('getCache', () => {
   test('should return defined', async () => {
     const result = await getCache(request)
     expect(result).toBeDefined()
   })
 
-  test('should return request.server.app.cache', async () => {
+  test.each([
+    ['request.server.app.cache', (result, request) => result, (request) => request.server.app.cache],
+    ['rule.expiresIn as config.cache.ttl', (result) => result.rule.expiresIn, () => config.cache.ttl],
+    ['ttl() as config.cache.ttl', (result) => result.ttl(), () => config.cache.ttl],
+    ['_segment as config.cache.segment', (result) => result._segment, () => config.cache.segment]
+  ])('should return %s', async (_, getResultValue, getExpectedValue) => {
     const result = await getCache(request)
-    expect(result).toStrictEqual(request.server.app.cache)
-  })
-
-  test('should return rule.expiresIn as config.cache.ttl', async () => {
-    const result = await getCache(request)
-    expect(result.rule.expiresIn).toBe(config.cache.ttl)
-  })
-
-  test('should return ttl() as config.cache.ttl', async () => {
-    const result = await getCache(request)
-    expect(result.ttl()).toBe(config.cache.ttl)
-  })
-
-  test('should return _segment as config.cache.segment', async () => {
-    const result = await getCache(request)
-    expect(result._segment).toBe(config.cache.segment)
+    expect(getResultValue(result, request)).toStrictEqual(getExpectedValue(request))
   })
 })
