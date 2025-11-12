@@ -68,22 +68,23 @@ describe('Return statement from either cache or Blob Storage', () => {
   })
 
   describe('error handling', () => {
-    test.each([
-      ['cache throws', () => getStatementFromCache.mockRejectedValue(new Error('Redis retrieval issue'))],
-      ['blob throws', () => {
+    const scenarios = [
+      ['cache throws', async () => {
+        getStatementFromCache.mockRejectedValue(new Error('Redis retrieval issue'))
+      }],
+      ['blob throws', async () => {
         getStatementFromCache.mockResolvedValue(undefined)
         getStatementFromBlobStorage.mockRejectedValue(new Error('Blob Storage retrieval issue'))
       }],
-      ['set throws', () => {
+      ['set throws', async () => {
         getStatementFromCache.mockResolvedValue(undefined)
         set.mockRejectedValue(new Error('Redis save down issue'))
       }]
-    ])('%s', (_, setup) => {
-      beforeEach(setup)
+    ]
 
-      test('throws error', async () => {
-        await expect(getReadThroughStatement(request, filename)).rejects.toThrow()
-      })
+    test.each(scenarios)('%s', async (_, setup) => {
+      await setup() // configure mocks
+      await expect(getReadThroughStatement(request, filename)).rejects.toThrow()
     })
 
     test('does not call blob or set when cache throws', async () => {
