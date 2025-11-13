@@ -20,7 +20,8 @@
     "Simon Dunn simon.dunn1@defra.gov.uk",
     "John Watson john.watson2@rpa.gov.uk",
     "Leigh Godson leigh.godson@atos.net",
-    "John Barnard john.barnard.external@atos.net"
+    "John Barnard john.barnard.external@atos.net",
+    "Sam Plackett samuel.plackett@atos.net"
   ],
   "license": "OGL-UK-3.0",
   "dependencies": {
@@ -32,7 +33,7 @@
     "applicationinsights": "2.9.6",
     "ffc-alerting-utils": "1.0.6",
     "ffc-pay-event-publisher": "1.2.0",
-    "hapi-pino": "10.1.0",
+    "hapi-pino": "13.0.0",
     "joi": "17.7.0"
   },
   "devDependencies": {
