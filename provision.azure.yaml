@@ -1,2 +1,5 @@
 resources:
   identity: doc-statement-receiver
+  topics:
+    - name: ffc-doc-alerting
+      role: sender
