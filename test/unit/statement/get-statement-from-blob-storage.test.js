@@ -13,7 +13,7 @@ let filename
 let fileContent
 
 describe('Get statement file from Blob Storage', () => {
-  beforeEach(async () => {
+  beforeEach(() => {
     request = require('../../mock-components/request')
     filename = require('../../mock-components/filename')
     fileContent = require('../../mock-components/file-content')
@@ -24,68 +24,42 @@ describe('Get statement file from Blob Storage', () => {
     streamToBuffer.mockResolvedValue(Buffer.from(fileContent))
   })
 
-  afterEach(async () => {
+  afterEach(() => {
     jest.resetAllMocks()
   })
 
-  test('should call getFileStream', async () => {
-    await getStatementFromBlobStorage(request, filename)
-    expect(getFileStream).toHaveBeenCalled()
-  })
-
-  test('should call getFileStream once', async () => {
-    await getStatementFromBlobStorage(request, filename)
-    expect(getFileStream).toHaveBeenCalledTimes(1)
-  })
-
-  test('should call getFileStream with filename', async () => {
-    await getStatementFromBlobStorage(request, filename)
-    expect(getFileStream).toHaveBeenCalledWith(filename)
-  })
-
-  test('should call streamToBuffer', async () => {
-    await getStatementFromBlobStorage(request, filename)
-    expect(streamToBuffer).toHaveBeenCalled()
-  })
-
-  test('should call streamToBuffer once', async () => {
-    await getStatementFromBlobStorage(request, filename)
-    expect(streamToBuffer).toHaveBeenCalledTimes(1)
-  })
-
-  test('should call streamToBuffer with getFileStream().readableStreamBody', async () => {
-    await getStatementFromBlobStorage(request, filename)
-    expect(streamToBuffer).toHaveBeenCalledWith((await getFileStream()).readableStreamBody)
-  })
-
-  test('should return streamToBuffer', async () => {
-    const result = await getStatementFromBlobStorage(request, filename)
-    expect(result).toStrictEqual(await streamToBuffer())
-  })
-
-  test('should not call streamToBuffer when getFileStream throws', async () => {
-    getFileStream.mockRejectedValue(new Error(`${filename} does not exist`))
-    try { await getStatementFromBlobStorage(request, filename) } catch {}
-    expect(streamToBuffer).not.toHaveBeenCalled()
-  })
-
-  test('should throw when getFileStream throws', async () => {
-    getFileStream.mockRejectedValue(new Error(`${filename} does not exist`))
-
-    const wrapper = async () => {
+  describe('normal flow', () => {
+    test.each([
+      ['calls getFileStream', () => expect(getFileStream).toHaveBeenCalled()],
+      ['calls getFileStream once', () => expect(getFileStream).toHaveBeenCalledTimes(1)],
+      ['calls getFileStream with filename', () => expect(getFileStream).toHaveBeenCalledWith(filename)],
+      ['calls streamToBuffer', () => expect(streamToBuffer).toHaveBeenCalled()],
+      ['calls streamToBuffer once', () => expect(streamToBuffer).toHaveBeenCalledTimes(1)],
+      ['calls streamToBuffer with readableStreamBody', async () => expect(streamToBuffer).toHaveBeenCalledWith((await getFileStream()).readableStreamBody)]
+    ])('%s', async (_, assertion) => {
       await getStatementFromBlobStorage(request, filename)
-    }
+      await assertion()
+    })
 
-    expect(wrapper).rejects.toThrow()
+    test('returns Buffer from streamToBuffer', async () => {
+      const result = await getStatementFromBlobStorage(request, filename)
+      expect(result).toStrictEqual(await streamToBuffer())
+    })
   })
 
-  test('should throw when streamToBuffer throws', async () => {
-    streamToBuffer.mockRejectedValue(new Error('Issue converting file stream to Buffer'))
-
-    const wrapper = async () => {
-      await getStatementFromBlobStorage(request, filename)
-    }
-
-    expect(wrapper).rejects.toThrow()
+  describe('error handling', () => {
+    test.each([
+      ['getFileStream throws', async () => {
+        getFileStream.mockRejectedValue(new Error(`${filename} does not exist`))
+        await expect(getStatementFromBlobStorage(request, filename)).rejects.toThrow()
+        expect(streamToBuffer).not.toHaveBeenCalled()
+      }],
+      ['streamToBuffer throws', async () => {
+        streamToBuffer.mockRejectedValue(new Error('Issue converting file stream to Buffer'))
+        await expect(getStatementFromBlobStorage(request, filename)).rejects.toThrow()
+      }]
+    ])('%s', async (_, testFn) => {
+      await testFn()
+    })
   })
 })
