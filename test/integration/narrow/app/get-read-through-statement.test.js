@@ -22,20 +22,16 @@ jest.mock('@azure/storage-blob', () => {
 })
 
 const { Readable } = require('stream')
-
 const createServer = require('../../../../app/server')
-
 const { get, set, drop } = require('../../../../app/cache')
-
 const getReadThroughStatement = require('../../../../app/statement/get-read-through-statement')
 
 let server
 let request
-
 let filename
 let fileContent
 
-describe('Get read through statement', () => {
+describe('getReadThroughStatement', () => {
   beforeEach(async () => {
     server = await createServer()
     request = { server: { app: { cache: server.app.cache } } }
@@ -68,42 +64,22 @@ describe('Get read through statement', () => {
   })
 
   test('should set cache for filename when filename not in cache', async () => {
-    const cacheForFilenameBefore = await get(request, filename)
-
+    const cacheBefore = await get(request, filename)
     await getReadThroughStatement(request, filename)
-
-    const cacheForFilenameAfter = await get(request, filename)
-    expect(cacheForFilenameBefore).toBeNull()
-    expect(cacheForFilenameAfter).toBeDefined()
+    const cacheAfter = await get(request, filename)
+    expect(cacheBefore).toBeNull()
+    expect(cacheAfter).toBeDefined()
   })
 
-  test('should throw when filename not in cache and Blob throws', async () => {
-    mockDownload.mockRejectedValue(new Error('Blob storage retreival issue'))
-
+  test.each([
+    ['throw when filename not in cache and Blob throws', new Error('Blob storage retreival issue'), (err, name) => expect(err).rejects.toThrow()],
+    ['throw Error when filename not in cache and Blob throws', new Error('Blob storage retreival issue'), (err, name) => expect(err).rejects.toThrow(Error)],
+    ['throw error with "filename does not exist" when filename not in cache and Blob throws', new Error('Blob storage retreival issue'), (err, name) => expect(err).rejects.toThrow(`${name} does not exist`)]
+  ])('should %s', async (_, errorInstance, assertion) => {
+    mockDownload.mockRejectedValue(errorInstance)
     const wrapper = async () => {
       await getReadThroughStatement(request, filename)
     }
-
-    expect(wrapper).rejects.toThrow()
-  })
-
-  test('should throw Error when filename not in cache and Blob throws', async () => {
-    mockDownload.mockRejectedValue(new Error('Blob storage retreival issue'))
-
-    const wrapper = async () => {
-      await getReadThroughStatement(request, filename)
-    }
-
-    expect(wrapper).rejects.toThrow(Error)
-  })
-
-  test('should throw error with "filename does not exist" when filename not in cache and Blob throws', async () => {
-    mockDownload.mockRejectedValue(new Error('Blob storage retreival issue'))
-
-    const wrapper = async () => {
-      await getReadThroughStatement(request, filename)
-    }
-
-    expect(wrapper).rejects.toThrow(`${filename} does not exist`)
+    await assertion(wrapper, filename)
   })
 })
