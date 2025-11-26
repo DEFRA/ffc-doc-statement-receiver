@@ -37,6 +37,7 @@ container:
   redisPassword: redis
   endpointEnabled: true
   alertTopicAddress: ffc-doc-alerting
+  messageQueueHost: namespace.servicebus.windows.net
 
 ingress:
   class: nginx
