@@ -1,6 +1,5 @@
 const config = require('../../../app/config')
 const createServer = require('../../../app/server')
-
 const { set, drop } = require('../../../app/cache')
 const getCache = require('../../../app/cache/get-cache')
 const getCacheValue = require('../../../app/cache/get-cache-value')
@@ -29,76 +28,49 @@ afterEach(async () => {
   jest.resetAllMocks()
 })
 
-describe('set cache', () => {
+describe('setCache', () => {
   test('should return undefined', async () => {
     const result = await set(request, key, value)
     expect(result).toBeUndefined()
   })
 
-  test('should populate cache with key', async () => {
+  test.each([
+    ['key', async () => {
+      const result = await getCacheValue(getCache(request), key)
+      return result
+    }, (result) => expect(result).toBeDefined()],
+    ['value', async () => {
+      const result = await getCacheValue(getCache(request), key)
+      return result
+    }, (result) => expect(result).toBe(value)]
+  ])('should populate cache with %s', async (_, getValue, assertion) => {
     await set(request, key, value)
-
-    const result = await getCacheValue(getCache(request), key)
-    expect(result).toBeDefined()
+    const result = await getValue()
+    assertion(result)
   })
 
-  test('should populate cache with value', async () => {
+  test.each([
+    ['empty array value', []],
+    ['empty object value', {}],
+    ['true value', true],
+    ['false value', false]
+  ])('should populate cache with %s', async (_, inputValue) => {
+    value = inputValue
     await set(request, key, value)
-
-    const result = await getCacheValue(getCache(request), key)
-    expect(result).toBe(value)
-  })
-
-  test('should populate cache with empty array value', async () => {
-    value = []
-
-    await set(request, key, value)
-
     const result = await getCacheValue(getCache(request), key)
     expect(result).toStrictEqual(value)
-  })
-
-  test('should populate cache with empty object value', async () => {
-    value = {}
-
-    await set(request, key, value)
-
-    const result = await getCacheValue(getCache(request), key)
-    expect(result).toStrictEqual(value)
-  })
-
-  test('should populate cache with true value', async () => {
-    value = true
-
-    await set(request, key, value)
-
-    const result = await getCacheValue(getCache(request), key)
-    expect(result).toBe(value)
-  })
-
-  test('should populate cache with false value', async () => {
-    value = false
-
-    await set(request, key, value)
-
-    const result = await getCacheValue(getCache(request), key)
-    expect(result).toBe(false)
   })
 
   test('should not populate cache with null value', async () => {
     value = null
-
     await set(request, key, value)
-
     const result = await getCacheValue(getCache(request), key)
     expect(result).toBeNull()
   })
 
-  test('should not populate cache with undefined value and throw when trying to retreive', async () => {
+  test('should not populate cache with undefined value and throw when trying to retrieve', async () => {
     value = undefined
-
     await set(request, key, value)
-
     const wrapper = async () => {
       await getCacheValue(getCache(request), key)
     }

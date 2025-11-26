@@ -24,142 +24,81 @@ describe('Return statement from either cache or Blob Storage', () => {
     set.mockResolvedValue(undefined)
   })
 
-  afterEach(async () => {
+  afterEach(() => {
     jest.resetAllMocks()
   })
 
-  test('should call getStatementFromCache', async () => {
-    await getReadThroughStatement(request, filename)
-    expect(getStatementFromCache).toHaveBeenCalled()
-  })
-
-  test('should call getStatementFromCache once', async () => {
-    await getReadThroughStatement(request, filename)
-    expect(getStatementFromCache).toHaveBeenCalledTimes(1)
-  })
-
-  test('should call getStatementFromCache with request and filename', async () => {
-    await getReadThroughStatement(request, filename)
-    expect(getStatementFromCache).toHaveBeenCalledWith(request, filename)
-  })
-
-  test('should return getStatementFromCache', async () => {
-    const result = await getReadThroughStatement(request, filename)
-    expect(result).toStrictEqual(await getStatementFromCache())
-  })
-
-  test('should not call getStatementFromBlobStorage', async () => {
-    await getReadThroughStatement(request, filename)
-    expect(getStatementFromBlobStorage).not.toHaveBeenCalled()
-  })
-
-  test('should not call set', async () => {
-    await getReadThroughStatement(request, filename)
-    expect(set).not.toHaveBeenCalled()
-  })
-
-  test('should call getStatementFromBlobStorage when getStatementFromCache returns undefined', async () => {
-    getStatementFromCache.mockResolvedValue(undefined)
-    await getReadThroughStatement(request, filename)
-    expect(getStatementFromBlobStorage).toHaveBeenCalled()
-  })
-
-  test('should call getStatementFromBlobStorage once when getStatementFromCache returns undefined', async () => {
-    getStatementFromCache.mockResolvedValue(undefined)
-    await getReadThroughStatement(request, filename)
-    expect(getStatementFromBlobStorage).toHaveBeenCalledTimes(1)
-  })
-
-  test('should call getStatementFromBlobStorage with request and filename when getStatementFromCache returns undefined', async () => {
-    getStatementFromCache.mockResolvedValue(undefined)
-    await getReadThroughStatement(request, filename)
-    expect(getStatementFromBlobStorage).toHaveBeenCalledWith(request, filename)
-  })
-
-  test('should call set when getStatementFromCache returns undefined', async () => {
-    getStatementFromCache.mockResolvedValue(undefined)
-    await getReadThroughStatement(request, filename)
-    expect(set).toHaveBeenCalled()
-  })
-
-  test('should call set once when getStatementFromCache returns undefined', async () => {
-    getStatementFromCache.mockResolvedValue(undefined)
-    await getReadThroughStatement(request, filename)
-    expect(set).toHaveBeenCalledTimes(1)
-  })
-
-  test('should call set with request, filename and getStatementFromBlobStorage when getStatementFromCache returns undefined', async () => {
-    getStatementFromCache.mockResolvedValue(undefined)
-    await getReadThroughStatement(request, filename)
-    expect(set).toHaveBeenCalledWith(request, filename, await getStatementFromBlobStorage())
-  })
-
-  test('should return getStatementFromBlobStorage when getStatementFromCache returns undefined', async () => {
-    getStatementFromCache.mockResolvedValue(undefined)
-    const result = await getReadThroughStatement(request, filename)
-    expect(result).toStrictEqual(await getStatementFromBlobStorage())
-  })
-
-  test('should throw when getStatementFromCache throws', async () => {
-    getStatementFromCache.mockRejectedValue(new Error('Redis retrieval issue'))
-
-    const wrapper = async () => {
+  describe('when cache returns a value', () => {
+    test.each([
+      ['calls getStatementFromCache', () => expect(getStatementFromCache).toHaveBeenCalled()],
+      ['calls getStatementFromCache once', () => expect(getStatementFromCache).toHaveBeenCalledTimes(1)],
+      ['calls getStatementFromCache with request and filename', () => expect(getStatementFromCache).toHaveBeenCalledWith(request, filename)],
+      ['does not call getStatementFromBlobStorage', () => expect(getStatementFromBlobStorage).not.toHaveBeenCalled()],
+      ['does not call set', () => expect(set).not.toHaveBeenCalled()]
+    ])('%s', async (_, assertion) => {
       await getReadThroughStatement(request, filename)
-    }
+      assertion()
+    })
 
-    expect(wrapper).rejects.toThrow()
+    test('returns cache value', async () => {
+      const result = await getReadThroughStatement(request, filename)
+      expect(result).toStrictEqual(await getStatementFromCache())
+    })
   })
 
-  test('should not call getStatementFromBlobStorage when getStatementFromCache throws', async () => {
-    getStatementFromCache.mockRejectedValue(new Error('Redis retrieval issue'))
-    try { await getReadThroughStatement(request, filename) } catch {}
-    expect(getStatementFromBlobStorage).not.toHaveBeenCalled()
-  })
+  describe('when cache returns undefined', () => {
+    beforeEach(() => getStatementFromCache.mockResolvedValue(undefined))
 
-  test('should not call set when getStatementFromCache throws', async () => {
-    getStatementFromCache.mockRejectedValue(new Error('Redis retrieval issue'))
-    try { await getReadThroughStatement(request, filename) } catch {}
-    expect(set).not.toHaveBeenCalled()
-  })
-
-  test('should throw when getStatementFromCache returns undefined and getStatementFromCache throws', async () => {
-    getStatementFromCache.mockRejectedValue(new Error('Redis retrieval issue'))
-
-    const wrapper = async () => {
+    test.each([
+      ['calls getStatementFromBlobStorage', () => expect(getStatementFromBlobStorage).toHaveBeenCalled()],
+      ['calls getStatementFromBlobStorage once', () => expect(getStatementFromBlobStorage).toHaveBeenCalledTimes(1)],
+      ['calls getStatementFromBlobStorage with request and filename', () => expect(getStatementFromBlobStorage).toHaveBeenCalledWith(request, filename)],
+      ['calls set', () => expect(set).toHaveBeenCalled()],
+      ['calls set once', () => expect(set).toHaveBeenCalledTimes(1)],
+      ['calls set with request, filename and blob value', async () => expect(set).toHaveBeenCalledWith(request, filename, await getStatementFromBlobStorage())]
+    ])('%s', async (_, assertion) => {
       await getReadThroughStatement(request, filename)
-    }
+      await assertion()
+    })
 
-    expect(wrapper).rejects.toThrow()
+    test('returns blob value', async () => {
+      const result = await getReadThroughStatement(request, filename)
+      expect(result).toStrictEqual(await getStatementFromBlobStorage())
+    })
   })
 
-  test('should throw when when getStatementFromCache returns undefined and getStatementFromBlobStorage throws', async () => {
-    getStatementFromCache.mockResolvedValue(undefined)
-    getStatementFromBlobStorage.mockRejectedValue(new Error('Blob Storage retrieval issue'))
+  describe('error handling', () => {
+    const scenarios = [
+      ['cache throws', async () => {
+        getStatementFromCache.mockRejectedValue(new Error('Redis retrieval issue'))
+      }],
+      ['blob throws', async () => {
+        getStatementFromCache.mockResolvedValue(undefined)
+        getStatementFromBlobStorage.mockRejectedValue(new Error('Blob Storage retrieval issue'))
+      }],
+      ['set throws', async () => {
+        getStatementFromCache.mockResolvedValue(undefined)
+        set.mockRejectedValue(new Error('Redis save down issue'))
+      }]
+    ]
 
-    const wrapper = async () => {
-      await getReadThroughStatement(request, filename)
-    }
+    test.each(scenarios)('%s', async (_, setup) => {
+      await setup() // configure mocks
+      await expect(getReadThroughStatement(request, filename)).rejects.toThrow()
+    })
 
-    expect(wrapper).rejects.toThrow()
-  })
+    test('does not call blob or set when cache throws', async () => {
+      getStatementFromCache.mockRejectedValue(new Error('Redis retrieval issue'))
+      try { await getReadThroughStatement(request, filename) } catch {}
+      expect(getStatementFromBlobStorage).not.toHaveBeenCalled()
+      expect(set).not.toHaveBeenCalled()
+    })
 
-  test('should not call set when getStatementFromCache returns undefined and getStatementFromBlobStorage throws', async () => {
-    getStatementFromCache.mockResolvedValue(undefined)
-    getStatementFromBlobStorage.mockRejectedValue(new Error('Blob Storage retrieval issue'))
-
-    try { await getReadThroughStatement(request, filename) } catch {}
-
-    expect(set).not.toHaveBeenCalled()
-  })
-
-  test('should throw when when getStatementFromCache returns undefined and set throws', async () => {
-    getStatementFromCache.mockResolvedValue(undefined)
-    set.mockRejectedValue(new Error('Redis save down issue'))
-
-    const wrapper = async () => {
-      await getReadThroughStatement(request, filename)
-    }
-
-    expect(wrapper).rejects.toThrow()
+    test('does not call set when blob throws', async () => {
+      getStatementFromCache.mockResolvedValue(undefined)
+      getStatementFromBlobStorage.mockRejectedValue(new Error('Blob Storage retrieval issue'))
+      try { await getReadThroughStatement(request, filename) } catch {}
+      expect(set).not.toHaveBeenCalled()
+    })
   })
 })
