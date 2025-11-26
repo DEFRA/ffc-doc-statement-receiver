@@ -4,6 +4,8 @@ const schema = require('./schemas/statement')
 
 const getReadThroughStatement = require('../statement')
 
+const { sendAlert } = require('../alert')
+
 module.exports = {
   method: 'GET',
   path: '/{version}/statements/statement/{filename}',
@@ -27,6 +29,7 @@ module.exports = {
         .header('Content-Disposition', `attachment;filename=${filename}`)
         .code(200)
     } catch (error) {
+      sendAlert('statements', request.params.filename, `Error fetching statement: ${error.message}`)
       return Boom.notFound(error)
     }
   }

@@ -1,9 +1,36 @@
+const mockDownload = jest.fn()
+jest.mock('@azure/storage-blob', () => {
+  return {
+    BlobServiceClient: {
+      fromConnectionString: jest.fn().mockImplementation(() => {
+        return {
+          getContainerClient: jest.fn().mockImplementation(() => {
+            return {
+              createIfNotExists: jest.fn(),
+              getBlockBlobClient: jest.fn().mockImplementation(() => {
+                return {
+                  download: mockDownload,
+                  upload: jest.fn()
+                }
+              })
+            }
+          })
+        }
+      })
+    }
+  }
+})
+
+jest.mock('../../../../app/alert', () => {
+  return {
+    sendAlert: jest.fn()
+  }
+})
+
 const { Readable } = require('stream')
 const { get, set, drop } = require('../../../../app/cache')
 const createServer = require('../../../../app/server')
 const apiVersions = require('../../../../app/constants/api-versions')
-
-const mockDownload = jest.fn()
 
 jest.mock('@azure/storage-blob', () => ({
   BlobServiceClient: {

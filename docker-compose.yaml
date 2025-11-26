@@ -15,6 +15,10 @@ services:
       REDIS_HOSTNAME: ffc-doc-statement-receiver-redis
       REDIS_PASSWORD: redis
       PORT: 3022
+      ALERT_TOPIC_ADDRESS: ${ALERT_TOPIC_ADDRESS:-ffc-doc-alerting}${MESSAGE_QUEUE_SUFFIX}
+      MESSAGE_QUEUE_HOST: ${MESSAGE_QUEUE_HOST}
+      MESSAGE_QUEUE_PASSWORD: ${MESSAGE_QUEUE_PASSWORD}
+      MESSAGE_QUEUE_USER: ${MESSAGE_QUEUE_USER}
 
   ffc-doc-statement-azurite:
     image: mcr.microsoft.com/azure-storage/azurite:3.32.0
