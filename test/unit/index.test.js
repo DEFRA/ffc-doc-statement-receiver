@@ -60,4 +60,31 @@ describe('Server initialization', () => {
     await new Promise(process.nextTick)
     expect(init).toHaveBeenCalled()
   })
+
+  test('should set environment variables when alerting.init is not available', async () => {
+    jest.resetModules()
+
+    jest.doMock('../../app/server', () =>
+      jest.fn().mockResolvedValue({
+        start: jest.fn(),
+        info: { uri: 'test' }
+      })
+    )
+
+    jest.doMock('ffc-alerting-utils', () => ({}))
+
+    jest.isolateModules(() => {
+      require('../../app/index')
+    })
+
+    await new Promise(process.nextTick)
+
+    const messageConfig = require('../../app/config/message')
+    const { SOURCE } = require('../../app/constants/source')
+    const { DATA_STATEMENT_RECEIVER_ERROR } = require('../../app/constants/alerts')
+
+    expect(process.env.ALERT_TOPIC).toBe(JSON.stringify(messageConfig.alertTopic))
+    expect(process.env.ALERT_SOURCE).toBe(SOURCE)
+    expect(process.env.ALERT_TYPE).toBe(DATA_STATEMENT_RECEIVER_ERROR)
+  })
 })
