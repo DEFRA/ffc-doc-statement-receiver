@@ -7,7 +7,6 @@ const getCacheValue = require('../../../app/cache/get-cache-value')
 const { get } = require('../../../app/cache')
 
 const key = 'Key'
-
 let request
 
 beforeEach(async () => {
@@ -17,44 +16,33 @@ beforeEach(async () => {
   getCacheValue.mockResolvedValue(request.server.app.cache.key)
 })
 
-afterEach(async () => {
+afterEach(() => {
   jest.resetAllMocks()
 })
 
 describe('get cache', () => {
-  test('should call getCache', async () => {
+  test.each([
+    ['should call getCache', () => expect(getCache).toHaveBeenCalled()],
+    ['should call getCache once', () => expect(getCache).toHaveBeenCalledTimes(1)],
+    ['should call getCache with request', (r) => expect(getCache).toHaveBeenCalledWith(r)]
+  ])('%s', async (_, assertion) => {
     await get(request, key)
-    expect(getCache).toHaveBeenCalled()
+    assertion(request)
   })
 
-  test('should call getCache once', async () => {
+  test.each([
+    ['should call getCacheValue', () => expect(getCacheValue).toHaveBeenCalled()],
+    ['should call getCacheValue once', () => expect(getCacheValue).toHaveBeenCalledTimes(1)],
+    ['should call getCacheValue with getCache and key', () =>
+      expect(getCacheValue).toHaveBeenCalledWith(getCache(), key)]
+  ])('%s', async (_, assertion) => {
     await get(request, key)
-    expect(getCache).toHaveBeenCalledTimes(1)
-  })
-
-  test('should call getCache with request', async () => {
-    await get(request, key)
-    expect(getCache).toHaveBeenCalledWith(request)
-  })
-
-  test('should call getCacheValue', async () => {
-    await get(request, key)
-    expect(getCacheValue).toHaveBeenCalled()
-  })
-
-  test('should call getCacheValue once', async () => {
-    await get(request, key)
-    expect(getCacheValue).toHaveBeenCalledTimes(1)
-  })
-
-  test('should call getCacheValue with getCache and key', async () => {
-    await get(request, key)
-    expect(getCacheValue).toHaveBeenCalledWith(getCache(), key)
+    assertion()
   })
 
   test('should return getCacheValue', async () => {
     const result = await get(request, key)
-    expect(result).toStrictEqual((await getCacheValue()))
+    expect(result).toStrictEqual(await getCacheValue())
   })
 
   test('should return null when getCacheValue returns null', async () => {
@@ -63,15 +51,12 @@ describe('get cache', () => {
     expect(result).toBeNull()
   })
 
-  test('should return undefined when getCache throws', async () => {
-    getCache.mockImplementation(() => { throw new Error('Redis retreival error') })
+  test.each([
+    ['getCache throws', () => getCache.mockImplementation(() => { throw new Error('Redis retrieval error') })],
+    ['getCacheValue throws', () => getCacheValue.mockRejectedValue(new Error('Redis retrieval error'))]
+  ])('should return undefined when %s', async (_, setup) => {
+    setup()
     const result = await get(request, key)
-    await expect(result).toBeUndefined()
-  })
-
-  test('should return undefined when getCacheValue throws', async () => {
-    getCacheValue.mockRejectedValue(new Error('Redis retreival error'))
-    const result = await get(request, key)
-    await expect(result).toBeUndefined()
+    expect(result).toBeUndefined()
   })
 })
