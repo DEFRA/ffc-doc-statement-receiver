@@ -1,7 +1,7 @@
 const Joi = require('joi')
 
 const mqSchema = Joi.object({
-    messageQueue: {
+  messageQueue: {
     host: Joi.string(),
     username: Joi.string(),
     password: Joi.string(),

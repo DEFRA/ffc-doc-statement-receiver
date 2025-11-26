@@ -32,8 +32,6 @@ const { get, set, drop } = require('../../../../app/cache')
 const createServer = require('../../../../app/server')
 const apiVersions = require('../../../../app/constants/api-versions')
 
-const mockDownload = jest.fn()
-
 jest.mock('@azure/storage-blob', () => ({
   BlobServiceClient: {
     fromConnectionString: jest.fn().mockImplementation(() => ({
