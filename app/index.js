@@ -1,6 +1,6 @@
+const { EventPublisher } = require('ffc-pay-event-publisher')
 const createServer = require('./server')
 
-const { EventPublisher } = require('ffc-pay-event-publisher')
 const { DATA_STATEMENT_RECEIVER_ERROR } = require('./constants/alerts')
 const { SOURCE } = require('./constants/source')
 

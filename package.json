@@ -33,7 +33,7 @@
     "@hapi/hapi": "20.2.2",
     "applicationinsights": "3.12.1",
     "ffc-alerting-utils": "1.0.6",
-    "ffc-pay-event-publisher": "1.2.0",
+    "ffc-pay-event-publisher": "1.2.1",
     "hapi-pino": "13.0.0",
     "joi": "17.7.0"
   },
