@@ -1,0 +1,17 @@
+environment: production
+environmentCode: snd2
+pr: true
+name: 
+appInsights.connectionString: {\"uri\":\"https://devffcinfkv1001.vault.azure.net/secrets/devtest-ffcahwr-appInsights-connectionString\"}
+container.messageQueueHost: DEVFFCINFSB1001.servicebus.windows.net
+container.alertTopicAddress:
+container.port:
+container.azureStorageAccountName: devffcdocst1001
+container.azureStorageConnectionString:
+container.azureStorageUseConnectionString:
+container.azureStorageCreateContainers:
+container.storageContainer:
+container.storageFolder:
+container.redisHostname:
+container.redisPort: 6380
+container.endpointEnabled:
