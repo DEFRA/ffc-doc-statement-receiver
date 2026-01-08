@@ -1,17 +1,8 @@
 environment: production
 environmentCode: prd
-pr:
-name: 
 appInsights.connectionString: REMOVED
 container.messageQueueHost: PRDFFCINFSB1001.servicebus.windows.net
-container.alertTopicAddress:
-container.port:
 container.azureStorageAccountName: prdffcdocst1001
-container.azureStorageConnectionString:
-container.azureStorageUseConnectionString:
-container.azureStorageCreateContainers:
-container.storageContainer:
-container.storageFolder:
 container.redisHostname: PRDFFCINFRD1001.redis.cache.windows.net
 container.redisPort: 6380
 container.endpointEnabled: true

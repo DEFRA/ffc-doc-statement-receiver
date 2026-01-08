@@ -1,17 +1,7 @@
 environment: production
 environmentCode: snd2
-pr:
-name: 
 appInsights.connectionString: REMOVED
 container.messageQueueHost: SNDFFCINFSB2001.servicebus.windows.net
-container.alertTopicAddress:
-container.port:
 container.azureStorageAccountName: snd2ffcdocst2001
-container.azureStorageConnectionString:
-container.azureStorageUseConnectionString:
-container.azureStorageCreateContainers:
-container.storageContainer:
-container.storageFolder:
 container.redisHostname: SNDFFCINFRD2001.redis.cache.windows.net
 container.redisPort: 6380
-container.endpointEnabled:
