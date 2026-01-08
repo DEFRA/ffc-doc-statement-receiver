@@ -1,7 +1,8 @@
 environment: production
 environmentCode: test
-appInsights.connectionString: {\"uri\":\"https://devffcinfkv1001.vault.azure.net/secrets/devtest-ffcahwr-appInsights-connectionString\"}
-container.messageQueueHost: DEVFFCINFSB1001.servicebus.windows.net
-container.azureStorageAccountName: devffcdocst1001
+REMOVED
+container.messageQueueHost: SNDFFCINFSB2001.servicebus.windows.net
+container.azureStorageAccountName: snd2ffcdocst2001
+container.redisHostname: SNDFFCINFRD2001.redis.cache.windows.net
 container.redisPort: 6380
-secretProviderClass.azure.keyvaultName: DEVFFCINFKV1001
+secretProviderClass.azure.keyvaultName: SNDFFCINFKV2001
