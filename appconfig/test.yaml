@@ -4,3 +4,4 @@ appInsights.connectionString: {\"uri\":\"https://devffcinfkv1001.vault.azure.net
 container.messageQueueHost: DEVFFCINFSB1001.servicebus.windows.net
 container.azureStorageAccountName: devffcdocst1001
 container.redisPort: 6380
+secretProviderClass.azure.keyvaultName: DEVFFCINFKV1001
