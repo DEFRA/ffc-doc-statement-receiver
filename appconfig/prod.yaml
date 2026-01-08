@@ -6,3 +6,4 @@ container.azureStorageAccountName: prdffcdocst1001
 container.redisHostname: PRDFFCINFRD1001.redis.cache.windows.net
 container.redisPort: 6380
 container.endpointEnabled: true
+secretProviderClass.azure.keyvaultName: PRDFFCINFKV1001
