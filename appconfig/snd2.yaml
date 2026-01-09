@@ -1,8 +1,7 @@
+---
 environment: production
-environmentCode: snd2
-REMOVED
-container.messageQueueHost: SNDFFCINFSB2001.servicebus.windows.net
-container.azureStorageAccountName: snd2ffcdocst2001
-container.redisHostname: SNDFFCINFRD2001.redis.cache.windows.net
-container.redisPort: 6380
-secretProviderClass.azure.keyvaultName: SNDFFCINFKV2001
+environmentCode: snd
+container:
+  applyQueueAddress: ffc-demo-apply
+  messageQueueHost: SNDFFCINFSB2001.servicebus.windows.net
+  azureStorageAccountName: snd2ffcdocst2001
