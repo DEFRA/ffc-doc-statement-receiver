@@ -80,6 +80,6 @@ secretProviderClass:
       type: Opaque
       data:
         - objectName: appInsights-connectionString # secret name in Azure Key Vault
-          key: APPINSIGHTS_CONNECTIONSTRING # the secret key in the Kubernetes secret and use in the application
+          key: APPINSIGHTS_CONNECTION_STRING # the secret key in the Kubernetes secret and use in the application
         - objectName: redisPassword # secret name in Azure Key Vault
           key: REDIS_PASSWORD # the secret key in the Kubernetes secret and use in the application
