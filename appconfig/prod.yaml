@@ -1,9 +1,20 @@
+---
 environment: production
 environmentCode: prd
-appInsights.connectionString: REMOVED
-container.messageQueueHost: PRDFFCINFSB1001.servicebus.windows.net
-container.azureStorageAccountName: prdffcdocst1001
-container.redisHostname: PRDFFCINFRD1001.redis.cache.windows.net
-container.redisPort: 6380
-container.endpointEnabled: true
-secretProviderClass.azure.keyvaultName: PRDFFCINFKV1001
+container:
+  messageQueueHost: PRDFFCINFSB1001.servicebus.windows.net
+  azureStorageAccountName: prdffcdocst1001
+  endpointEnabled: true
+secretProviderClass:
+  azure:
+    keyvaultName: PRDFFCINFKV1001
+    objects:
+      - objectName: prd-ffcahwr-appinsights-connectionString
+        objectType: secret
+
+  secretObjects:
+    - secretName: ffc-doc-statement-receiver
+      type: Opaque
+      data:
+        - objectName: prd-ffcahwr-appinsights-connectionString
+          key: APPINSIGHTS_CONNECTIONSTRING
