@@ -21,11 +21,6 @@ try {
     process.env.ALERT_SOURCE = SOURCE
     process.env.ALERT_TYPE = DATA_STATEMENT_RECEIVER_ERROR
   }
-
-  const test = true
-  if (test) {
-    console.log('Alerting utils initialized - a simple test to see if picked up by code coverage')
-  }
 } catch (err) {
   console.warn('Failed to initialize alerting utils:', err.message)
 }
