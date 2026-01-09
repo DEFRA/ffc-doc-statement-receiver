@@ -9,6 +9,7 @@ services:
     container_name: ffc-doc-statement-receiver-test
     depends_on:
       - ffc-doc-statement-receiver-redis
+      - servicebus-emulator
     command: npm run test
     volumes:
       - ./app:/home/node/app
@@ -18,9 +19,10 @@ services:
       - ./package.json:/home/node/package.json
     environment:
       AZURE_STORAGE_CONNECTION_STRING: DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://ffc-doc-statement-azurite:10000/devstoreaccount1;
-      MESSAGE_QUEUE_HOST: emulator
-      MESSAGE_QUEUE_USERNAME: RootManageSharedAccessKey
-      MESSAGE_QUEUE_PASSWORD: DummyStrongPa$$w0rd
+      MESSAGE_QUEUE_HOST: servicebus-emulator
+      MESSAGE_QUEUE_USER: RootManageSharedAccessKey
+      MESSAGE_QUEUE_PASSWORD: SAS_KEY_VALUE
+      STATEMENT_QUEUE_ADDRESS: ffc-doc-statement-test
   
   ffc-doc-statement-azurite:
     labels:
