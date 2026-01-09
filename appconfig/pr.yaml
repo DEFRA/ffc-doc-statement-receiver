@@ -1,4 +1,4 @@
 environment: production
 environmentCode: snd2
 pr: true
-container.messageQueueHost: SNDFFCINFSB2001.servicebus.windows.net
+container.messageQueueHost: queue:SNDFFCINFSB2001.servicebus.windows.net
