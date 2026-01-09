@@ -1,9 +1,20 @@
+---
 environment: production
 environmentCode: pre
-appInsights.connectionString: InstrumentationKey=9e27add9-1da6-441f-a98e-5cec223ec91c;IngestionEndpoint=https://northeurope-0.in.applicationinsights.azure.com/;LiveEndpoint=https://northeurope.livediagnostics.monitor.azure.com/
-container.messageQueueHost: PREFFCINFSB1001.servicebus.windows.net
-container.azureStorageAccountName: preffcdocst1001
-container.redisHostname: PREFFCINFRD1001.redis.cache.windows.net
-container.redisPort: 6380
-container.endpointEnabled: true
-secretProviderClass.azure.keyvaultName: PREFFCINFKV1001
+container:
+  messageQueueHost: PREFFCINFSB1001.servicebus.windows.net
+  azureStorageAccountName: preffcdocst1001
+  endpointEnabled: true
+secretProviderClass:
+  azure:
+    keyvaultName: PREFFCINFKV1001
+    objects:
+      - objectName: pre-ffcahwr-appinsights-connectionString
+        objectType: secret
+
+  secretObjects:
+    - secretName: ffc-doc-statement-receiver
+      type: Opaque
+      data:
+        - objectName: pre-ffcahwr-appinsights-connectionString
+          key: APPINSIGHTS_CONNECTIONSTRING
