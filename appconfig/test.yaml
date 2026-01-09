@@ -1,8 +1,2 @@
 environment: production
 environmentCode: test
-appInsights.connectionString: InstrumentationKey=4d44be1a-566b-4bb1-b3ec-3628afa13c22;IngestionEndpoint=https://northeurope-0.in.applicationinsights.azure.com/;LiveEndpoint=https://northeurope.livediagnostics.monitor.azure.com/
-container.messageQueueHost: SNDFFCINFSB2001.servicebus.windows.net
-container.azureStorageAccountName: snd2ffcdocst2001
-container.redisHostname: SNDFFCINFRD2001.redis.cache.windows.net
-container.redisPort: 6380
-secretProviderClass.azure.keyvaultName: SNDFFCINFKV2001
