@@ -72,7 +72,7 @@ secretProviderClass:
     objects: # reading the secret from Azure Key Vault
       - objectName: appInsights-connectionString # secret name in Azure Key Vault
         objectType: secret
-      - objectName: redisPassword # secret name in Azure Key Vault
+      - objectName: sn2-redisPassword # secret name in Azure Key Vault
         objectType: secret
 
   secretObjects: # creating a Kubernetes secret from the Azure Key Vault secrets
@@ -81,5 +81,5 @@ secretProviderClass:
       data:
         - objectName: appInsights-connectionString # secret name in Azure Key Vault
           key: APPINSIGHTS_CONNECTION_STRING # the secret key in the Kubernetes secret and use in the application
-        - objectName: redisPassword # secret name in Azure Key Vault
+        - objectName: snd2-redisPassword # secret name in Azure Key Vault
           key: REDIS_PASSWORD # the secret key in the Kubernetes secret and use in the application
