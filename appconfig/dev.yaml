@@ -9,7 +9,7 @@ secretProviderClass:
     objects:
       - objectName: devtest-ffcahwr-appInsights-connectionString
         objectType: secret
-      - objectName: devtest-redisPassword
+      - objectName: dev-redisPassword
         objectType: secret
 
   secretObjects:
@@ -18,5 +18,5 @@ secretProviderClass:
       data:
         - objectName: devtest-ffcahwr-appInsights-connectionString
           key: APPINSIGHTS_CONNECTION_STRING
-        - objectName: devtest-redisPassword
+        - objectName: dev-redisPassword
           key: REDIS_PASSWORD
