@@ -5,6 +5,7 @@ container:
   messageQueueHost: PRDFFCINFSB1001.servicebus.windows.net
   azureStorageAccountName: prdffcdocst1001
   endpointEnabled: true
+  redisHostname: PRDFFCINFRD1001.redis.cache.windows.net
 secretProviderClass:
   azure:
     keyvaultName: PRDFFCINFKV1001

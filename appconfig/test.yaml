@@ -3,6 +3,7 @@ environment: production
 environmentCode: test
 container:
   messageQueueHost: DEVFFCINFSB1001.servicebus.windows.net
+  redisHostname: DEVFFCINFRD1001.redis.cache.windows.net
 secretProviderClass:
   azure:
     keyvaultName: DEVFFCINFKV1001
