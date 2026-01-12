@@ -32,7 +32,7 @@ container:
   azureStorageCreateContainers: false
   storageContainer: statements
   storageFolder: outbound
-  redisHostname: hosty-mchost-face
+  redisHostname: SNDFFCINFRD2001.redis.cache.windows.net
   redisPort: 6379
   redisPassword: redis
   endpointEnabled: true
