@@ -1,4 +1,6 @@
 environment: production
 environmentCode: snd2
 pr: true
-container.messageQueueHost: queue:SNDFFCINFSB2001.servicebus.windows.net
+container:
+  messageQueueHost: queue:SNDFFCINFSB2001.servicebus.windows.net
+  redisHostname: SNDFFCINFRD2001.redis.cache.windows.net
