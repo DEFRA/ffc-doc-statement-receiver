@@ -11,6 +11,8 @@ secretProviderClass:
     objects:
       - objectName: prd-ffcahwr-appinsights-connectionString
         objectType: secret
+      - objectName: prd-redisPassword
+        objectType: secret
 
   secretObjects:
     - secretName: ffc-doc-statement-receiver
@@ -18,3 +20,5 @@ secretProviderClass:
       data:
         - objectName: prd-ffcahwr-appinsights-connectionString
           key: APPINSIGHTS_CONNECTION_STRING
+        - objectName: prd-redisPassword
+          key: REDIS_PASSWORD
