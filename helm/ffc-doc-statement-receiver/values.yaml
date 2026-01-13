@@ -26,14 +26,14 @@ container:
   limitMemory: 100Mi
   limitCpu: 100m
   port: 3022
-  azureStorageAccountName: ffcdoc
+  azureStorageAccountName: snd2ffcdocst2001
   azureStorageConnectionString: dummy
   azureStorageUseConnectionString: false
   azureStorageCreateContainers: false
   storageContainer: statements
   storageFolder: outbound
   redisHostname: SNDFFCINFRD2001.redis.cache.windows.net
-  redisPort: 6379
+  redisPort: 6380
   redisPassword: redis
   endpointEnabled: true
   alertTopicAddress: ffc-doc-alerting
