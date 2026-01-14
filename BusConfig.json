@@ -4,7 +4,16 @@
       {
         "Name": "sbemulatorns",
         "Queues": [],
-        "Topics": []
+        "Topics": [
+          {
+            "Name": "ffc-doc-alerting",
+            "Properties": {
+              "DefaultMessageTimeToLive": "PT1H",
+              "DuplicateDetectionHistoryTimeWindow": "PT20S",
+              "RequiresDuplicateDetection": false
+            }
+          }
+        ]
       } 
     ],
     "Logging": {
