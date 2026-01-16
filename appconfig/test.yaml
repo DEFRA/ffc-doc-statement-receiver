@@ -5,6 +5,9 @@ container:
   azureStorageAccountName: devffcdocst1001
   messageQueueHost: DEVFFCINFSB1001.servicebus.windows.net
   redisHostname: DEVFFCINFRD1001.redis.cache.windows.net
+ingress:
+  server: azure.defra.cloud
+  endpoint: ffc-doc-statement-receiver-test
 secretProviderClass:
   azure:
     keyvaultName: DEVFFCINFKV1001
