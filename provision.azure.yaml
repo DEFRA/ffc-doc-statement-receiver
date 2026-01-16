@@ -3,5 +3,8 @@ resources:
   service_bus:
     topics:
       - name: ffc-doc-alerting
+        defaultMessageTimeToLive: P3650D
+        duplicateDetectionHistoryTimeWindow: PT10M30S
+        requiresDuplicateDetection: true
         roles: 
         - name: sender
