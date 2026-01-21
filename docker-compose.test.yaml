@@ -10,6 +10,7 @@ services:
     depends_on:
       - ffc-doc-statement-receiver-redis
       - servicebus-emulator
+      - ffc-doc-statement-azurite
     command: npm run test
     volumes:
       - ./app:/home/node/app
