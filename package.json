@@ -13,7 +13,8 @@
     "test:debug": "node --inspect-brk=0.0.0.0 ./node_modules/jest/bin/jest.js --coverage=false --onlyChanged --watch --runInBand --no-cache",
     "start:watch": "nodemon --inspect=0.0.0.0 --ext js --legacy-watch app/index.js",
     "start:debug": "nodemon --inspect-brk=0.0.0.0 --ext js --legacy-watch app/index.js",
-    "prepare": "sh -c 'command -v husky >/dev/null && husky install || true'"  },
+    "prepare": "husky"  
+  },
   "author": "Defra",
   "contributors": [
     "Abidemi Adio abidemi.adio@defra.gov.uk",
