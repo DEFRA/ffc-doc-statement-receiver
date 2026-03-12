@@ -28,9 +28,6 @@ resources:
       name: defra/fcp-pipeline-common
       # ref: branch-name
 
-variables:
-  HUSKY: 0
-
 extends:
   template: fcp-common-pipeline.yaml@templates
   parameters:
