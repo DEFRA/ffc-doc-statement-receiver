@@ -18,6 +18,5 @@ data:
   AZURE_STORAGE_FOLDER: {{ quote .Values.container.storageFolder }}
   REDIS_HOSTNAME: {{ quote .Values.container.redisHostname }}
   REDIS_PORT: {{ quote .Values.container.redisPort }}
-  REDIRECT_URL: https://{{ .Values.ingress.endpoint }}.{{ .Values.ingress.server }}/{{ .Values.container.azureAppRegistrationRedirectUrl }}
   ENDPOINT_ENABLED: {{ quote .Values.container.endpointEnabled }}
 {{- end -}}
