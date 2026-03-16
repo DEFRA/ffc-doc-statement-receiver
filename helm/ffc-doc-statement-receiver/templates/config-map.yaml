@@ -3,7 +3,6 @@
 data:
   NODE_ENV: {{ quote .Values.environment }}
   MESSAGE_QUEUE_HOST: {{ quote .Values.container.messageQueueHost }}
-  {{- if and (.Values.environmentCode) (not .Values.pr) }}
   ALERT_TOPIC_ADDRESS: {{ .Values.container.alertTopicAddress }}-{{ .Values.environmentCode }}
   {{ else }}
   ALERT_TOPIC_ADDRESS: {{ .Values.container.alertTopicAddress }}
@@ -19,5 +18,6 @@ data:
   AZURE_STORAGE_FOLDER: {{ quote .Values.container.storageFolder }}
   REDIS_HOSTNAME: {{ quote .Values.container.redisHostname }}
   REDIS_PORT: {{ quote .Values.container.redisPort }}
+  REDIRECT_URL: https://{{ .Values.ingress.endpoint }}.{{ .Values.ingress.server }}/{{ .Values.container.azureAppRegistrationRedirectUrl }}
   ENDPOINT_ENABLED: {{ quote .Values.container.endpointEnabled }}
 {{- end -}}
