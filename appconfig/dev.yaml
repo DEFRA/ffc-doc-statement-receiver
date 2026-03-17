@@ -22,6 +22,6 @@ secretProviderClass:
       type: Opaque
       data:
         - objectName: devtest-ffcahwr-appInsights-connectionString
-          key: APPINSIGHTS_CONNECTION_STRING
+          key: APPLICATIONINSIGHTS_CONNECTION_STRING
         - objectName: dev-redisPassword
           key: REDIS_PASSWORD

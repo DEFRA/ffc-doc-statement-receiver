@@ -2,7 +2,7 @@
 environment: production
 environmentCode: test
 container:
-  azureStorageAccountName: devffcdocst1001
+  azureStorageAccountName: testffcdocst1001
   messageQueueHost: DEVFFCINFSB1001.servicebus.windows.net
   redisHostname: DEVFFCINFRD1001.redis.cache.windows.net
 ingress:
@@ -22,6 +22,6 @@ secretProviderClass:
       type: Opaque
       data:
         - objectName: devtest-ffcahwr-appInsights-connectionString
-          key: APPINSIGHTS_CONNECTION_STRING
+          key: APPLICATIONINSIGHTS_CONNECTION_STRING
         - objectName: dev-redisPassword
           key: REDIS_PASSWORD
