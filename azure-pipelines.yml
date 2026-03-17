@@ -35,3 +35,17 @@ extends:
     prDeployment: ${{ parameters.prDeployment }}
     branchDeployment: ${{ parameters.branchDeployment }}
     sndDeployment: ${{ parameters.sndDeployment }}
+    failOnThreshold: moderate  # Optional: moderate (default), low, high, critical
+    variableGroupName: ffc-doc-statement-receiver-env-var
+    pr_params:
+      container.endpointEnabled: $(pr_endpointEnabled)
+    snd2_params:
+      container.endpointEnabled: $(snd2_endpointEnabled)
+    dev_params:
+      container.endpointEnabled: $(dev_endpointEnabled)
+    test_params:
+      container.endpointEnabled: $(test_endpointEnabled)
+    pre_params:
+      container.endpointEnabled: $(pre_endpointEnabled)
+    prd_params:
+      container.endpointEnabled: $(prd_endpointEnabled)
