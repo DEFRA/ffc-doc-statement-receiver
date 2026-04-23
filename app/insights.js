@@ -1,6 +1,6 @@
 const { useAzureMonitor } = require('@azure/monitor-opentelemetry')
 
-function setup () {
+const setup = () => {
   const connectionString = process.env.APPLICATIONINSIGHTS_CONNECTION_STRING
 
   if (connectionString) {
