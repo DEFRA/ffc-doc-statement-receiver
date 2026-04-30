@@ -6,12 +6,15 @@ module.exports = {
         const response = request.response
 
         if (response.isBoom) {
+
+console.log(response)
+
           const statusCode = response.output.statusCode
 
           request.log('error', {
             statusCode,
             message: response.message,
-            payloadMessage: response.data ? response.data.payload.message : ''
+            payloadMessage: response.output ? response.output.payload.message : ''
           })
           return response
         }
