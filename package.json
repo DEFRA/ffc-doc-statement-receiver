@@ -33,9 +33,9 @@
     "@hapi/catbox-redis": "6.0.2",
     "@hapi/hapi": "20.2.2",
     "applicationinsights": "3.12.1",
-    "ffc-alerting-utils": "1.0.9",
-    "ffc-messaging": "2.10.4",
-    "ffc-pay-event-publisher": "1.2.1",
+    "ffc-alerting-utils": "1.0.14",
+    "ffc-messaging": "2.10.6",
+    "ffc-pay-event-publisher": "1.2.5",
     "hapi-pino": "13.0.0",
     "joi": "17.7.0"
   },
@@ -43,7 +43,7 @@
     "blipp": "4.0.2",
     "eslint": "9.39.1",
     "jest": "29.6.4",
-    "jest-junit": "14.0.0",
+    "jest-junit": "17.0.0",
     "neostandard": "0.12.2",
     "nodemon": "3.1.4"
   },
