@@ -34,7 +34,7 @@
     "@hapi/boom": "10.0.1",
     "@hapi/catbox-redis": "6.0.2",
     "@hapi/hapi": "21.4.8",
-    "ffc-alerting-utils": "1.0.14",
+    "ffc-alerting-utils": "1.0.15",
     "ffc-messaging": "2.10.6",
     "ffc-pay-event-publisher": "1.2.5",
     "hapi-pino": "13.0.0",
