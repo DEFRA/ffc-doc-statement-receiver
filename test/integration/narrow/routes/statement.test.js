@@ -1,50 +1,34 @@
 const mockDownload = jest.fn()
+
 jest.mock('@azure/storage-blob', () => {
-  return {
-    BlobServiceClient: {
-      fromConnectionString: jest.fn().mockImplementation(() => {
-        return {
-          getContainerClient: jest.fn().mockImplementation(() => {
-            return {
-              createIfNotExists: jest.fn(),
-              getBlockBlobClient: jest.fn().mockImplementation(() => {
-                return {
-                  download: mockDownload,
-                  upload: jest.fn()
-                }
-              })
-            }
-          })
-        }
-      })
-    }
-  }
+  const mockGetContainerClient = jest.fn().mockImplementation(() => ({
+    createIfNotExists: jest.fn(),
+    getBlockBlobClient: jest.fn().mockImplementation(() => ({
+      download: mockDownload,
+      upload: jest.fn()
+    }))
+  }))
+  const mockBlobServiceClient = jest.fn().mockImplementation(() => ({
+    getContainerClient: mockGetContainerClient
+  }))
+  mockBlobServiceClient.fromConnectionString = jest.fn().mockImplementation(() => ({
+    getContainerClient: mockGetContainerClient
+  }))
+  return { BlobServiceClient: mockBlobServiceClient }
 })
 
-jest.mock('../../../../app/alert', () => {
-  return {
-    sendAlert: jest.fn()
-  }
-})
+jest.mock('@azure/identity', () => ({
+  DefaultAzureCredential: jest.fn().mockImplementation(() => ({}))
+}))
+
+jest.mock('../../../../app/alert', () => ({
+  sendAlert: jest.fn()
+}))
 
 const { Readable } = require('stream')
 const { get, set, drop } = require('../../../../app/cache')
 const createServer = require('../../../../app/server')
 const apiVersions = require('../../../../app/constants/api-versions')
-
-jest.mock('@azure/storage-blob', () => ({
-  BlobServiceClient: {
-    fromConnectionString: jest.fn().mockImplementation(() => ({
-      getContainerClient: jest.fn().mockImplementation(() => ({
-        createIfNotExists: jest.fn(),
-        getBlockBlobClient: jest.fn().mockImplementation(() => ({
-          download: mockDownload,
-          upload: jest.fn()
-        }))
-      }))
-    }))
-  }
-}))
 
 let server
 let request

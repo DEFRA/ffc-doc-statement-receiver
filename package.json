@@ -1,6 +1,6 @@
 {
   "name": "ffc-doc-statement-receiver",
-  "version": "1.0.20",
+  "version": "1.0.22",
   "description": "Statement API",
   "homepage": "https://github.com/DEFRA/ffc-doc-statement-receiver",
   "main": "app/index.js",
@@ -28,18 +28,18 @@
   ],
   "license": "OGL-UK-3.0",
   "dependencies": {
-    "@azure/identity": "4.4.1",
+    "@azure/identity": "4.13.1",
+    "@azure/monitor-opentelemetry": "1.16.0",
     "@azure/storage-blob": "12.31.0",
-    "@hapi/boom": "10.0.0",
+    "@hapi/boom": "10.0.1",
     "@hapi/catbox-redis": "6.0.2",
     "@hapi/hapi": "21.4.8",
-    "applicationinsights": "3.12.1",
-    "ffc-alerting-utils": "1.0.14",
+    "ffc-alerting-utils": "1.0.15",
     "ffc-messaging": "2.10.6",
     "ffc-pay-event-publisher": "1.2.5",
     "hapi-pino": "13.0.0",
     "joi": "17.7.0"
-  },
+  }, 
   "devDependencies": {
     "blipp": "4.0.2",
     "eslint": "9.39.1",
