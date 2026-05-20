@@ -50,7 +50,10 @@
     "nodemon": "3.1.4"
   },
   "overrides": {
-    "protobufjs": "8.0.2"
+    "protobufjs": "7.5.8",
+    "@opentelemetry/otlp-transformer": "0.218.0",
+    "@opentelemetry/otlp-exporter-base": "0.218.0",
+    "@opentelemetry/otlp-grpc-exporter-base": "0.218.0"
   },
   "nodemonConfig": {
     "ignore": [
