@@ -16,7 +16,8 @@ module.exports = [
       const looksLikeProbe =
         ua.includes('Azure Front Door') ||
         ua === '' ||
-        request.method === 'head'
+        request.method === 'head' ||
+        request.url === '/'
 
       if (looksLikeProbe) {
         return h.response('ok').code(200)
