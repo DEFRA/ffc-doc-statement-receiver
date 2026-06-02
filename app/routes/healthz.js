@@ -1,8 +1,12 @@
+const HTTP_OK = 200;
+const HTTP_NOT_FOUND = 404;
+
 module.exports = [
+
   {
     method: 'GET',
     path: '/healthz',
-    handler: (request, h) => h.response('ok').code(200)
+    handler: (_request, h) => h.response('ok').code(HTTP_OK)
   },
 
   // Following code added to handle AFD's synthetic health check probes
@@ -20,11 +24,11 @@ module.exports = [
         request.url.pathname === '/'
 
       if (looksLikeProbe) {
-        return h.response('ok').code(200)
+        return h.response('ok').code(HTTP_OK)
       }
 
       // Otherwise behave like a normal 404
-      return h.response({ error: 'Not Found' }).code(404)
+      return h.response({ error: 'Not Found' }).code(HTTP_NOT_FOUND)
     }
   }
 ]
