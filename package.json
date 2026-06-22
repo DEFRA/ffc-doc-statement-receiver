@@ -39,7 +39,7 @@
     "ffc-messaging": "2.10.6",
     "ffc-pay-event-publisher": "1.2.5",
     "hapi-pino": "13.0.0",
-    "joi": "17.7.0"
+    "joi": "18.2.1"
   },
   "devDependencies": {
     "blipp": "4.0.2",
@@ -51,7 +51,11 @@
     "nodemon": "3.1.4"
   },
   "overrides": {
-    "protobufjs": "8.2.0"
+    "protobufjs": "8.6.3",
+    "uuid": "11.1.1",
+    "joi": "18.2.1",
+    "js-yaml": "4.2.0",
+    "@opentelemetry/core": "2.8.0"
   },
   "nodemonConfig": {
     "ignore": [
