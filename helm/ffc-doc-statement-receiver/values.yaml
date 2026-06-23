@@ -38,6 +38,7 @@ container:
   endpointEnabled: true
   alertTopicAddress: ffc-doc-alerting
   messageQueueHost: namespace.servicebus.windows.net
+  azureLogLevel: error
 
 ingress:
   class: nginx
