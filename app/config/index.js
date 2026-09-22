@@ -44,6 +44,6 @@ value.cache.catboxOptions = value.useRedis
       tls: value.isDev ? undefined : {}
     }
   : {}
-value.cache.catbox = value.useRedis ? require('@hapi/catbox-redis') : require('@hapi/catbox-memory')
+value.cache.catbox = value.useRedis ? require('@hapi/catbox-redis').Engine : require('@hapi/catbox-memory').Engine
 
 module.exports = value
