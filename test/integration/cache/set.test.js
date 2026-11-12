@@ -74,7 +74,7 @@ describe('setCache', () => {
     const wrapper = async () => {
       await getCacheValue(getCache(request), key)
     }
-    expect(wrapper).rejects.toThrowError()
+    expect(wrapper).rejects.toThrow()
   })
 
   test('should have cache value expire after config.cache.ttl has passed', async () => {
