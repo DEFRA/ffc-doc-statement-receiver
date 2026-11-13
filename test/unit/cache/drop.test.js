@@ -45,13 +45,13 @@ describe('drop cache', () => {
 
     test.each([
       ['throws generic error', async () => {
-        await expect(drop(request, key)).rejects.toThrowError()
+        await expect(drop(request, key)).rejects.toThrow()
       }],
       ['throws Error instance', async () => {
-        await expect(drop(request, key)).rejects.toThrowError(Error)
+        await expect(drop(request, key)).rejects.toThrow(Error)
       }],
       [`throws message "${message}"`, async () => {
-        await expect(drop(request, key)).rejects.toThrowError(new RegExp(`^${message}$`))
+        await expect(drop(request, key)).rejects.toThrow(new RegExp(`^${message}$`))
       }]
     ])('%s', async (_, assertion) => {
       await assertion()
