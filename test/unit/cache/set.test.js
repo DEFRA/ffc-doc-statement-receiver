@@ -49,13 +49,13 @@ describe('set cache', () => {
 
     test.each([
       ['throws generic error', async () => {
-        await expect(set(request, key, value)).rejects.toThrowError()
+        await expect(set(request, key, value)).rejects.toThrow()
       }],
       ['throws Error instance', async () => {
-        await expect(set(request, key, value)).rejects.toThrowError(Error)
+        await expect(set(request, key, value)).rejects.toThrow(Error)
       }],
       [`throws message "${message}"`, async () => {
-        await expect(set(request, key, value)).rejects.toThrowError(new RegExp(`^${message}$`))
+        await expect(set(request, key, value)).rejects.toThrow(new RegExp(`^${message}$`))
       }]
     ])('%s', async (_, assertion) => {
       await assertion()

@@ -1,4 +1,4 @@
-name: '$(Build.SourceBranchName)$(System.PullRequest.SourceBranch)$(Rev:.r)'
+name: "$(Build.SourceBranchName)$(System.PullRequest.SourceBranch)$(Rev:.r)"
 
 trigger:
   - main
